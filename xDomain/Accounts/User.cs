@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace xDomain._91128
+﻿namespace xDomain._91128
 {
     public class User : BaseEntity
     {

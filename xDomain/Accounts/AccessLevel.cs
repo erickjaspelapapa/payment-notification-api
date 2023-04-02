@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using xDomain._91128;
-
-namespace xDomain._91128
+﻿namespace xDomain._91128
 {
     public class AccessLevel : BaseEntity
     {

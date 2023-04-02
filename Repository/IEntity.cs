@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace xRepository._91128
+﻿namespace xRepository._91128
 {
     public interface IEntity
     {
