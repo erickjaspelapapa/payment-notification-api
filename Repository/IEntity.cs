@@ -2,7 +2,7 @@
 {
     public interface IEntity
     {
-        int uid { get; set; }
+        int id { get; set; }
         DateTime created_dt { get; set; }
         DateTime updated_dt { get; set; }
     }

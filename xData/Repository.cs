@@ -19,7 +19,7 @@ namespace xData._91128
         public async Task<IEnumerable<TEntity>> All() => await Include(_includes).AsNoTracking().ToListAsync();
         public void Delete(TEntity obj) => Table.Remove(obj);
         public void Delete(IEnumerable<TEntity> list) => Table.RemoveRange(list);
-        public Task<TEntity> GetById(int id) => Include(_includes).SingleAsync(x => x.uid.Equals(id));
+        public Task<TEntity> GetById(int id) => Include(_includes).SingleAsync(x => x.id.Equals(id));
         public void Update(TEntity obj) => Table.Update(obj);
         public void Update(IEnumerable<TEntity> list) => Table.UpdateRange(list);
         public IQueryable<TEntity> where(Expression<Func<TEntity, bool>> expression) => Include(_includes).Where(expression);

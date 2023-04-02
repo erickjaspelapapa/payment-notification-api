@@ -30,15 +30,15 @@ namespace xDomain.Mapping
                        .HasDefaultValueSql("getdate()");
 
             builder.HasOne(f => f.Agent)
-                .WithOne(f => f.Client)
+                .WithOne()
                 .HasForeignKey<clientsModel>(f => f.agentId);
 
             builder.HasOne(f => f.TransType)
-                .WithOne(f => f.Client)
+                .WithOne()
                 .HasForeignKey<clientsModel>(f => f.transTypeId);
 
             builder.HasOne(f => f.ProjGroup)
-                .WithOne(f => f.Client)
+                .WithOne()
                 .HasForeignKey<clientsModel>(f => f.projGrpId);
         }
     }

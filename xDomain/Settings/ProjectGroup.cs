@@ -1,11 +1,10 @@
-﻿using xDomain.Clients;
+﻿using xDomain._91128;
+using xDomain.Clients;
 
 namespace xDomain.Settings
 {
-    public class ProjectGroup
+    public class ProjectGroup:BaseEntity
     {
-        public int id { get; set; }
         public string projGrpDescription { get; set; }
-        public virtual clientsModel Client { get; set; }
     }
 }

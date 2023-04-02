@@ -40,7 +40,7 @@ namespace xDomain._91128.Mapping
             builder.HasData(
                             new User
                             {
-                                uid = 1,
+                                id = 1,
                                 firstNm = "Admin",
                                 middleNm = "Admin",
                                 lastNm = "Admin",

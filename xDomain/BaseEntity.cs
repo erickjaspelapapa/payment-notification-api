@@ -7,7 +7,7 @@ namespace xDomain._91128
     public abstract class BaseEntity : IEntity
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int uid { get; set; }
+        public int id { get; set; }
         public DateTime created_dt { get; set; }
         public DateTime updated_dt { get; set; }
         //protected BaseEntity()

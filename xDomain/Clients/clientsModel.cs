@@ -1,10 +1,10 @@
-﻿using xDomain.Settings;
+﻿using xDomain._91128;
+using xDomain.Settings;
 
 namespace xDomain.Clients
 {
-    public  class clientsModel
+    public  class clientsModel: BaseEntity
     {
-        public int id { get; set; }
         public string clientId { get; set; }
         public string clientName { get; set; }
         public string clientContactNumber { get; set; }
