@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using xDomain.Settings;
 using xRepository._91128;
@@ -10,10 +11,12 @@ namespace payment_notification_api.Controllers
     public class ProjGroupController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
         private readonly IRepository<ProjectGroup> _handler;
-        public ProjGroupController(IUnitOfWork unitOfWork)
+        public ProjGroupController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
             _handler = _unitOfWork.Repository<ProjectGroup>();
         }
 
@@ -34,11 +37,16 @@ namespace payment_notification_api.Controllers
 
         [HttpPost]
         [Route("InsertPrjGroup")]
-        public async Task<IActionResult> InsertPrjGroups([FromBody] ProjectGroup PrjGroup)
+        public async Task<IActionResult> InsertPrjGroups([FromBody] prjGrpObj PrjGroup)
         {
             try
             {
-                await _handler.Add(PrjGroup);
+                ProjectGroup inserted = _mapper.Map<ProjectGroup>(PrjGroup);
+
+                inserted.created_dt = DateTime.Now;
+                inserted.updated_dt = DateTime.Now;
+
+                await _handler.Add(inserted);
                 await _unitOfWork.Commit();
                 return Ok(true);
             }
@@ -50,13 +58,13 @@ namespace payment_notification_api.Controllers
 
         [HttpPut]
         [Route("UpdatePrjGroup")]
-        public async Task<IActionResult> UpdatePrjGroups([FromBody] ProjectGroup PrjGroup)
+        public async Task<IActionResult> UpdatePrjGroups([FromBody] prjGrpObj PrjGroup)
         {
             try
             {
-                ProjectGroup upd = await _handler.GetById(PrjGroup.id);
+                ProjectGroup upd = _mapper.Map<ProjectGroup>(PrjGroup);
 
-                upd.projGrpDescription = PrjGroup.projGrpDescription;
+                upd.updated_dt = DateTime.Now;
 
                 _handler.Update(upd);
                 await _unitOfWork.Commit();

@@ -1,9 +1,8 @@
 ﻿using xDomain._91128;
-using xDomain.Settings;
 
-namespace xDomain.Clients
+namespace xData.Objects.Client
 {
-    public  class clientsModel: BaseEntity
+    public class clientObj : BaseEntity
     {
         public string clientId { get; set; }
         public string clientName { get; set; }
@@ -16,9 +15,5 @@ namespace xDomain.Clients
         public int? transTypeId { get; set; }
         public int? agentId { get; set; }
         public int? projGrpId { get; set; }
-
-        public virtual AgentDetail? Agent{ get; set; }
-        public virtual TransferType? TransType { get; set; }
-        public virtual ProjectGroup? ProjGroup { get; set; }
     }
 }

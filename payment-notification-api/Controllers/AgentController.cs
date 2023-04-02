@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using xDomain.Settings;
 using xRepository._91128;
@@ -10,10 +11,12 @@ namespace payment_notification_api.Controllers
     public class AgentController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
         private readonly IRepository<AgentDetail> _handler;
-        public AgentController(IUnitOfWork unitOfWork)
+        public AgentController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper= mapper;
             _handler = _unitOfWork.Repository<AgentDetail>();
         }
 
@@ -24,21 +27,27 @@ namespace payment_notification_api.Controllers
             try
             {
                 IEnumerable<AgentDetail> response = await _handler.All();
+
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return Ok(ex);
             }
         }
 
         [HttpPost]
         [Route("InsertAgent")]
-        public async Task<IActionResult> InsertAgents([FromBody] AgentDetail agent)
+        public async Task<IActionResult> InsertAgents([FromBody] agentDetailObj agent)
         {
             try
             {
-                await _handler.Add(agent);
+                AgentDetail inserted = _mapper.Map<AgentDetail>(agent);
+
+                inserted.created_dt = DateTime.Now;
+                inserted.updated_dt = DateTime.Now;
+
+                await _handler.Add(inserted);
                 await _unitOfWork.Commit();
                 return Ok(true);
             }
@@ -50,15 +59,14 @@ namespace payment_notification_api.Controllers
 
         [HttpPut]
         [Route("UpdateAgent")]
-        public async Task<IActionResult> UpdateAgents([FromBody] AgentDetail agent)
+        public async Task<IActionResult> UpdateAgents([FromBody] agentDetailObj agent)
         {
             try
             {
-                AgentDetail upd = await _handler.GetById(agent.id);
+                AgentDetail upd = _mapper.Map<AgentDetail>(agent);
 
-                upd.agentFirstName = agent.agentFirstName;
-                upd.agentLastName = agent.agentLastName;
-
+                upd.updated_dt = DateTime.Now;
+                
                 _handler.Update(upd);
                 await _unitOfWork.Commit();
 
