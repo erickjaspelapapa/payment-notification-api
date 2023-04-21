@@ -13,6 +13,7 @@ namespace xDomain.Clients
         public double totalContractPrice { get; set; }
         public DateTime dateStartMonthlyPay { get; set; }
         public double transferFee { get; set; }
+        public int monthsToPay { get; set; }
         public int? transTypeId { get; set; }
         public int? agentId { get; set; }
         public int? projGrpId { get; set; }

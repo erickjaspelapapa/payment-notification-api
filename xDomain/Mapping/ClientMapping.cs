@@ -26,6 +26,9 @@ namespace xDomain.Mapping
             builder.Property(f => f.transferFee)
                .HasColumnType("decimal(18,2)").HasDefaultValue(0);
 
+            builder.Property(f => f.monthsToPay)
+               .HasColumnType("int").HasDefaultValue(12);
+
             builder.Property(f => f.dateStartMonthlyPay)
                        .HasDefaultValueSql("getdate()");
 

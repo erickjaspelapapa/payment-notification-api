@@ -16,7 +16,7 @@ namespace x91128x.Utility
     public static class EfExtentionService
     {
         public static IServiceCollection AddEntityFramework(this IServiceCollection services, string conStr) {
-            services.AddDbContext<paymentContext>(opt => opt.UseLazyLoadingProxies().UseSqlServer(conStr, x=> x.MigrationsAssembly("xData.Data")));
+            services.AddDbContext<paymentContext>(opt => opt.UseLazyLoadingProxies().UseSqlServer(conStr, x=> x.MigrationsAssembly("xData")));
             services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             return services;
