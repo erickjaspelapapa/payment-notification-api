@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using xData.Data;
 
@@ -11,9 +12,11 @@ using xData.Data;
 namespace xData.Migrations
 {
     [DbContext(typeof(paymentContext))]
-    partial class paymentContextModelSnapshot : ModelSnapshot
+    [Migration("20230421163855_PaymentAmount")]
+    partial class PaymentAmount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,70 +27,6 @@ namespace xData.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("xData.Objects.Transaction.tvfPaymentList", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("AgentCommission")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("Downpayment")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("MonthlyPayment")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("NotarialFee")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("Promo")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("Reservation")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("TransferFee")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("agentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("clientId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("clientName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("clientNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("created_dt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("paymentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("remarks")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("transId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("updated_dt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("id");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("tvfPaymentList", (string)null);
-                });
 
             modelBuilder.Entity("xDomain.Clients.clientsModel", b =>
                 {
@@ -259,6 +198,11 @@ namespace xData.Migrations
                     b.Property<int?>("agentId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("amount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
+
                     b.Property<int?>("clientId")
                         .HasColumnType("int");
 
@@ -270,11 +214,19 @@ namespace xData.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
+                    b.Property<string>("paymentType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("remarks")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("transId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("transLineId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("updated_dt")
@@ -291,40 +243,6 @@ namespace xData.Migrations
                         .HasFilter("[clientId] IS NOT NULL");
 
                     b.ToTable("Payment", (string)null);
-                });
-
-            modelBuilder.Entity("xDomain.Transactions.paymentLines", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<decimal>("amount")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(18,2)")
-                        .HasDefaultValue(0m);
-
-                    b.Property<DateTime>("created_dt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("paymentType")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("transId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("updated_dt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("transId");
-
-                    b.ToTable("PaymentLine", (string)null);
                 });
 
             modelBuilder.Entity("xDomain._91128.AccessLevel", b =>
@@ -438,7 +356,7 @@ namespace xData.Migrations
                             id = 1,
                             addressTx = "address",
                             contactTx = "contact",
-                            created_dt = new DateTime(2023, 4, 22, 21, 24, 46, 909, DateTimeKind.Local).AddTicks(9886),
+                            created_dt = new DateTime(2023, 4, 22, 0, 38, 54, 826, DateTimeKind.Local).AddTicks(3625),
                             emailTx = "dummy.erick@gmail.com",
                             employeeNo = "A2023",
                             firstNm = "Admin",
@@ -446,7 +364,7 @@ namespace xData.Migrations
                             lastNm = "Admin",
                             middleNm = "Admin",
                             passwordTx = "p@ssw0rd",
-                            updated_dt = new DateTime(2023, 4, 22, 21, 24, 46, 909, DateTimeKind.Local).AddTicks(9895),
+                            updated_dt = new DateTime(2023, 4, 22, 0, 38, 54, 826, DateTimeKind.Local).AddTicks(3638),
                             usernameTx = "Admin"
                         });
                 });
@@ -487,17 +405,6 @@ namespace xData.Migrations
                     b.Navigation("client");
                 });
 
-            modelBuilder.Entity("xDomain.Transactions.paymentLines", b =>
-                {
-                    b.HasOne("xDomain.Transactions.payment", "Payment")
-                        .WithMany("Lines")
-                        .HasForeignKey("transId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Payment");
-                });
-
             modelBuilder.Entity("xDomain._91128.AccessLevel", b =>
                 {
                     b.HasOne("xDomain._91128.User", "Users")
@@ -506,11 +413,6 @@ namespace xData.Migrations
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("xDomain.Transactions.payment", b =>
-                {
-                    b.Navigation("Lines");
                 });
 
             modelBuilder.Entity("xDomain._91128.User", b =>
