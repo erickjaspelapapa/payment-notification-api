@@ -36,15 +36,16 @@ namespace payment_notification_api.Controllers
 
         [HttpGet]
         [Route("getTransaction")]
-        public IActionResult GetTransaction(int transId)
+        public async Task<IActionResult> GetTransaction(int transId)
         {
             try
             {
-                return Ok();
+                payment response = await _unitOfWork.Repository<payment>().GetById(transId);
+                return Ok(response);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex);
             }
         }
 
