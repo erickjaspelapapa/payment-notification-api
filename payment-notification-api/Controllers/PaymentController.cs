@@ -50,6 +50,21 @@ namespace payment_notification_api.Controllers
         }
 
         [HttpGet]
+        [Route("getPaymentRecordsById")]
+        public IActionResult getPaymentRecords(string clientId)
+        {
+            try
+            {
+                var response = _unitOfWork.Repository<tvfPaymentRecords>().StoredInterpolated($"spGetPaymentRecords @ClientId={clientId}");
+                return Ok(response.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet]
         [Route("getProjected")]
         public IActionResult getProjected(string id)
         {
