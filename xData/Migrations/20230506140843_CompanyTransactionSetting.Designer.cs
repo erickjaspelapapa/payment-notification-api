@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using xData.Data;
 
@@ -11,9 +12,11 @@ using xData.Data;
 namespace xData.Migrations
 {
     [DbContext(typeof(paymentContext))]
-    partial class paymentContextModelSnapshot : ModelSnapshot
+    [Migration("20230506140843_CompanyTransactionSetting")]
+    partial class CompanyTransactionSetting
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

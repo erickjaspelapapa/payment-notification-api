@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using AutoMapper;
 using xData.Objects.Client;
+using xData.Objects.Setting;
 using xData.Objects.Transaction;
 using xDomain.Clients;
 using xDomain.Settings;
@@ -20,6 +21,8 @@ namespace xDomain._91128
             CreateMap<clientObj, clientsModel> ();
             CreateMap<paymentObj, payment> ();
             CreateMap<paymentLineObj, paymentLines> ();
+            CreateMap<categoryObj, Category> ();
+            CreateMap<identificationObj,Identification> ();
         }
     }
 }

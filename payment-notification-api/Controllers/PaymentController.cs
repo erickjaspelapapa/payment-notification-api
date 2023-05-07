@@ -119,7 +119,6 @@ namespace payment_notification_api.Controllers
             try
             {
                 payment mapped = _mapper.Map<payment>(payload);
-                int? clientId = mapped.clientId;
 
                 IEnumerable<paymentLines> forDelete = await _unitOfWork.Repository<paymentLines>().All();
 
