@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using xData.Data;
 
@@ -11,9 +12,11 @@ using xData.Data;
 namespace xData.Migrations
 {
     [DbContext(typeof(paymentContext))]
-    partial class paymentContextModelSnapshot : ModelSnapshot
+    [Migration("20230507071758_TransactionTable")]
+    partial class TransactionTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -391,13 +394,13 @@ namespace xData.Migrations
                         .HasColumnType("decimal(10,2)")
                         .HasDefaultValue(0m);
 
-                    b.Property<int?>("catId")
+                    b.Property<int>("catId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("created_dt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("identId")
+                    b.Property<int>("identId")
                         .HasColumnType("int");
 
                     b.Property<string>("remarks")
@@ -417,12 +420,10 @@ namespace xData.Migrations
                     b.HasKey("id");
 
                     b.HasIndex("catId")
-                        .IsUnique()
-                        .HasFilter("[catId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("identId")
-                        .IsUnique()
-                        .HasFilter("[identId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Transaction", (string)null);
                 });
@@ -657,7 +658,7 @@ namespace xData.Migrations
                             id = 1,
                             addressTx = "address",
                             contactTx = "contact",
-                            created_dt = new DateTime(2023, 5, 7, 15, 23, 20, 297, DateTimeKind.Local).AddTicks(5240),
+                            created_dt = new DateTime(2023, 5, 7, 15, 17, 54, 953, DateTimeKind.Local).AddTicks(2453),
                             emailTx = "dummy.erick@gmail.com",
                             employeeNo = "A2023",
                             firstNm = "Admin",
@@ -665,7 +666,7 @@ namespace xData.Migrations
                             lastNm = "Admin",
                             middleNm = "Admin",
                             passwordTx = "p@ssw0rd",
-                            updated_dt = new DateTime(2023, 5, 7, 15, 23, 20, 297, DateTimeKind.Local).AddTicks(5260),
+                            updated_dt = new DateTime(2023, 5, 7, 15, 17, 54, 953, DateTimeKind.Local).AddTicks(2474),
                             usernameTx = "Admin"
                         });
                 });

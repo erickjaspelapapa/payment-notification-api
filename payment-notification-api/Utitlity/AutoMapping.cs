@@ -13,7 +13,7 @@ namespace xDomain._91128
 {
     public class AutoMapping : AutoMapper.Profile
     {
-        public AutoMapping()
+        public AutoMapping()  
         {
             CreateMap<agentDetailObj, AgentDetail> ();
             CreateMap<transTypeObj, TransferType> ();
@@ -23,6 +23,11 @@ namespace xDomain._91128
             CreateMap<paymentLineObj, paymentLines> ();
             CreateMap<categoryObj, Category> ();
             CreateMap<identificationObj,Identification> ();
+            CreateMap<transactionObj,transaction> ();
+
+            CreateMap<transaction, transactionListObj>();
+            CreateMap<Identification, identificationObj> ();
+            CreateMap<Category, transCategoryObj>();
         }
     }
 }
