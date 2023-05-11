@@ -27,7 +27,11 @@ namespace payment_notification_api.Controllers
         {
             try
             {
-                IEnumerable<transaction> response = await _unitOfWork.Repository<transaction>().addIncludes(a => a.category).addIncludes(a => a.identification).All();
+                IEnumerable<transaction> response = await _unitOfWork.Repository<transaction>()
+                                                                     .addIncludes(a => a.category)
+                                                                     .addIncludes(a => a.identification)
+                                                                     .All();
+
                 IEnumerable<transactionListObj> result = _mapper.Map<IEnumerable<transactionListObj>>(response);
 
                 return Ok(result);

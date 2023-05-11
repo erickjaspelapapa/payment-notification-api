@@ -29,6 +29,17 @@ namespace payment_notification_api.Controllers
             return Ok(categories);
         }
 
+        [HttpGet]
+        [Route("getIdentification")]
+        public async Task<IActionResult> GetIdentification() 
+        { 
+        
+            IEnumerable<Identification> identification = await _unitOfWork.Repository<Identification>().All();
+            IEnumerable<identificationObj> response = _mapper.Map<IEnumerable<identificationObj>>(identification);
+
+            return Ok(response);
+        }
+
         [HttpPost]
         [Route("insertCategory")]
         public async Task<IActionResult> InsertCategory([FromBody] categoryObj payload)
