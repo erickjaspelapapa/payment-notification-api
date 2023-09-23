@@ -42,6 +42,21 @@ namespace payment_notification_api.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("getDailySummary")]
+        public IActionResult GetDailySummary(DateTime FromDate, DateTime ToDate)
+        {
+            try
+            {
+                var response = _unitOfWork.Repository<tvfDailySummary>().StoredInterpolated($"spGetDailySummary @fromDate={FromDate}, @toDate={ToDate}");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
         [HttpPost]
         [Route("InsertTransaction")]
         public async Task<IActionResult> InsertTransactions([FromBody]transactionObj payload)

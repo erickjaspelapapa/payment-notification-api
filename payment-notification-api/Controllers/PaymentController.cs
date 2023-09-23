@@ -20,8 +20,8 @@ namespace payment_notification_api.Controllers
         }
 
         [HttpGet]
-        [Route("getTransactionList")]
-        public IActionResult GetTransactionList(int clientId)
+        [Route("getPaymentList")]
+        public IActionResult GetPaymentList(int clientId)
         {
             try
             {
@@ -80,8 +80,8 @@ namespace payment_notification_api.Controllers
         }
 
         [HttpGet]
-        [Route("getTransaction")]
-        public async Task<IActionResult> GetTransaction(int transId)
+        [Route("getPayment")]
+        public async Task<IActionResult> GetPayment(int transId)
         {
             try
             {
@@ -95,8 +95,8 @@ namespace payment_notification_api.Controllers
         }
 
         [HttpPost]
-        [Route("insertTransaction")]
-        public async Task<IActionResult> InsertNewTransaction([FromBody] paymentObj payload)
+        [Route("insertPayment")]
+        public async Task<IActionResult> InsertNewPayment([FromBody] paymentObj payload)
         {
             try
             {
@@ -113,8 +113,8 @@ namespace payment_notification_api.Controllers
         }
 
         [HttpPut]
-        [Route("updateTransaction")]
-        public async Task<IActionResult> UpdateTransaction([FromBody] paymentObj payload)
+        [Route("updatePayment")]
+        public async Task<IActionResult> UpdatePayment([FromBody] paymentObj payload)
         {
             try
             {
